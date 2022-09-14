@@ -3,19 +3,24 @@
   "proxies": [
     {
       "address": "0xF12b5dd4EAD5F743C6BaA640B0216200e89B60Da",
-      "txHash": "0x0eb6828d679a978adee0bb91ad410c84ffae1ba56ca5066eac804c945c180408",
+      "txHash": "0xde4f8fb93c7be34a0730be5673a3fb71c48607cfb53397e207db717478275522",
       "kind": "uups"
     },
     {
       "address": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
-      "txHash": "0x7661d7b449360b6fab6ffc196cdb34b340453b19e2c354e0c43e691001857299",
+      "txHash": "0x3abbfa1b0c7701b7c5ca1ec1986c4ce28ab535889a7fce9bc25f85d00d7c36f2",
+      "kind": "uups"
+    },
+    {
+      "address": "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF",
+      "txHash": "0x7fb00683f7067fa87a5108c7e4210b558ee823e2718245ed813d45600ca9ec7a",
       "kind": "uups"
     }
   ],
   "impls": {
-    "d2bb56be03ded2950646e23b8c292b3b3a91c7ea422191df592adc81876492dc": {
+    "f5dcddcdb40582af53bfd64712427df16f3727d9504d367897690e1f31e6aac5": {
       "address": "0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0",
-      "txHash": "0xd2cdd6de7c2ead02fb09bf39b543cf6d480f78f124173115fafbfb11c710884f",
+      "txHash": "0xc0b63bd9701828bbe9988c341c7e2a218bf6b4ef330061b4ca34d738dfff93c3",
       "layout": {
         "storage": [
           {
@@ -138,14 +143,29 @@
             "label": "__gap",
             "type": "t_array(t_uint256)50_storage",
             "src": "../@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol:107"
+          },
+          {
+            "contract": "Zipty",
+            "label": "_idCounter",
+            "type": "t_struct(Counter)2540_storage",
+            "src": "../project:/contracts/Zipty.sol:14"
           }
         ],
         "types": {
-          "t_array(t_uint256)50_storage": {
-            "label": "uint256[50]"
+          "t_struct(Counter)2540_storage": {
+            "label": "struct CountersUpgradeable.Counter",
+            "members": [
+              {
+                "label": "_value",
+                "type": "t_uint256"
+              }
+            ]
           },
           "t_uint256": {
             "label": "uint256"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]"
           },
           "t_address": {
             "label": "address"
