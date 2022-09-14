@@ -1,0 +1,13 @@
+{
+  "name": "zipty-core",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Rolando Perez <me@rolilink.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@openzeppelin/contracts-upgradeable": "^4.7.3"
+  },
+  "devDependencies": {
+    "@openzeppelin/truffle-upgrades": "^1.16.0"
+  }
+}
