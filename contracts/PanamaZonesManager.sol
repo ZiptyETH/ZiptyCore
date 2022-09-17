@@ -1,30 +1,47 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
+import "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol";
+
 /// @custom:security-contact me@rolilink.com
 contract PanamaZonesManager  {
+     //using EnumerableSetUpgradeable for EnumerableSetUpgradeable.Bytes32Set;
+     using EnumerableSetUpgradeable for EnumerableSetUpgradeable.UintSet;
+
     struct Province {
         string name;
-        uint8 code; // we have 9 provinces and 3 indigenous zones
+        uint256 code;
     }
 
     struct District {
         string name;
-        uint8 code; // we have 75 districts, and I don't see feasible that there will be more than 255
         uint8 provinceCode;
+        uint16 code;
     }
 
     struct Corregimiento {
 	    string name;
-        uint16 code; // we have around 620 so we need uint16 in here
         uint8 districtCode;
+        uint16 code;
     }
 
     struct Provinces {
         mapping(uint256 => Province) values;
-        uint256[] ids;
+        EnumerableSetUpgradeable.UintSet ids;
+    }
+/*
+    // saves the districts under their bytes32 string representation (2-1)
+    struct Districts {
+        mapping(bytes32 => District) values;
+        bytes32[] ids;
     }
 
+    // // saves the corregimientos under their bytes32 string representation (8-1-3)
+    struct Corregimientos {
+        mapping(bytes32 => Corregimiento) values;
+        bytes32[] ids;
+    }
+*/
 
     // Variables declaration
     Provinces provinces;
@@ -47,14 +64,15 @@ contract PanamaZonesManager  {
 
     function __addProvince(Province memory _province) private {
         provinces.values[_province.code] = _province;
-        provinces.ids.push(_province.code);
+        provinces.ids.add( _province.code);
     }
 
     function getProvinces() public view returns(Province[] memory) {
-        Province[] memory rProvinces = new Province[](provinces.ids.length);
+        uint256 length = provinces.ids.length();
+        Province[] memory rProvinces = new Province[](length);
 
-        for (uint256 index = 0; index < provinces.ids.length; index++) {
-            rProvinces[index] = provinces.values[provinces.ids[index]];
+        for (uint256 index = 0; index < length; index++) {
+            rProvinces[index] = provinces.values[provinces.ids.at(index)];
         }
 
         return rProvinces;

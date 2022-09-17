@@ -1,7 +1,7 @@
 const ZiptyCore = artifacts.require("Zipty");
 const { deployProxy } = require('@openzeppelin/truffle-upgrades');
 
-const provinces = [
+const PROVINCES = [
   { code: 8, name: "Panama" },
 ];
 
@@ -17,7 +17,7 @@ const transformResultInStruct = ( result ) => {
   console.log(jsonString);
 }
 
-const deployZiptyV1 = async (rProvinces = provinces) => await deployProxy(ZiptyCore, [ rProvinces ], { kind: "uups" });
+const deployZiptyV1 = async ({ provinces } = { provinces: PROVINCES }) => await deployProxy(ZiptyCore, [ provinces ], { kind: "uups" });
 
 contract("Zipty V1", function (accounts) {
   const ownerAccount = accounts[0];
@@ -67,15 +67,27 @@ contract("PanamaZonesManager", function (accounts) {
   const ownerAccount = accounts[0];
 
   it("should be able to be initialized with provinces", async function () {
-    //TODO
+    const provinces = [
+      { code: 6, name: "Herrera" },
+      { code: 3, name: "Colon" },
+    ];
+
+    const ziptyContract = await deployZiptyV1({ provinces });
+    
+    const results = await debug(ziptyContract.getProvinces());
+    const herreraProvince = results.find((result) => result.code == provinces[0].code);
+    const colonProvince = results.find((result) => result.code == provinces[1].code);
+
+    assert.equal(herreraProvince.code, provinces[0].code);
+    assert.equal(colonProvince.code, provinces[1].code);
   });
 
   it("getProvince should return the correct province", async function () {
     const ziptyContract = await deployZiptyV1();
 
-    const result = await ziptyContract.getProvince(provinces[0].code);
+    const result = await ziptyContract.getProvince(PROVINCES[0].code);
    
-    assert.equal(result.code, provinces[0].code);
-    assert.equal(result.name, provinces[0].name);
+    assert.equal(result.code, PROVINCES[0].code);
+    assert.equal(result.name, PROVINCES[0].name);
   });
 });

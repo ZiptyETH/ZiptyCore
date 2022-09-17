@@ -7,37 +7,37 @@
       "kind": "uups"
     },
     {
-      "address": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
-      "txHash": "0xd291039853b3b9f3904da991575a9bc5dd711ce6be0d75372820de454508c32d",
-      "kind": "uups"
-    },
-    {
       "address": "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF",
-      "txHash": "0x55ea793bfdb18b4336ca33bcdb4512a8629ba050d4fdb24d3d059baaf4a91919",
+      "txHash": "0x3af39db791083e853875b59f67cd65030faafdf13df8861a53c8bdd7b0e67f8d",
       "kind": "uups"
     },
     {
       "address": "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F",
-      "txHash": "0x5cf67aa9f2fcef24f7231f994e4fdf947ae399a006dded9223ccb291c8286bd6",
+      "txHash": "0xd37f467f78c35ff5ec4dd5b32791eb8d027672adba6b9aabf38ce870d98205e7",
       "kind": "uups"
     },
     {
       "address": "0xF12b5dd4EAD5F743C6BaA640B0216200e89B60Da",
-      "txHash": "0xd5115769622cee089fd5803812c276b9998d00e4f4f921f5a5b456c2437cded7",
+      "txHash": "0xc7671ff818baf89ede4cf0f73f8220d03b03ce2c03efdd5aede2fd34fa829b25",
+      "kind": "uups"
+    },
+    {
+      "address": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
+      "txHash": "0xad7129008fc8e66fd21fa377a1274b95a2e610fba3df07974b0d02c8bcfef6bb",
       "kind": "uups"
     }
   ],
   "impls": {
-    "2e5469d03b1d5db48b53c27660d64cc890780b876a5d0bfa8d8a8d3e1f02a768": {
+    "b25085871d48d595f8ab24cbbe43b7a219b45b829c4edf1e6dc77fb4c2ea76a6": {
       "address": "0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0",
-      "txHash": "0x5c64e7c35614788b149397e5a7fbe267a1aab86801b6493324d0ec96bbd1ff2f",
+      "txHash": "0x2cbf5db0c14cf27bb2637e66c20526548f72cf0cc3817995499eaa02f67b9063",
       "layout": {
         "storage": [
           {
             "contract": "PanamaZonesManager",
             "label": "provinces",
-            "type": "t_struct(Provinces)2981_storage",
-            "src": "../project:/contracts/PanamaZonesManager.sol:30"
+            "type": "t_struct(Provinces)3585_storage",
+            "src": "../project:/contracts/PanamaZonesManager.sol:47"
           },
           {
             "contract": "Initializable",
@@ -225,23 +225,23 @@
           "t_uint8": {
             "label": "uint8"
           },
-          "t_struct(Provinces)2981_storage": {
+          "t_struct(Provinces)3585_storage": {
             "label": "struct PanamaZonesManager.Provinces",
             "members": [
               {
                 "label": "values",
-                "type": "t_mapping(t_uint256,t_struct(Province)2958_storage)"
+                "type": "t_mapping(t_uint256,t_struct(Province)3562_storage)"
               },
               {
                 "label": "ids",
-                "type": "t_array(t_uint256)dyn_storage"
+                "type": "t_struct(UintSet)3419_storage"
               }
             ]
           },
-          "t_mapping(t_uint256,t_struct(Province)2958_storage)": {
+          "t_mapping(t_uint256,t_struct(Province)3562_storage)": {
             "label": "mapping(uint256 => struct PanamaZonesManager.Province)"
           },
-          "t_struct(Province)2958_storage": {
+          "t_struct(Province)3562_storage": {
             "label": "struct PanamaZonesManager.Province",
             "members": [
               {
@@ -250,9 +250,40 @@
               },
               {
                 "label": "code",
-                "type": "t_uint8"
+                "type": "t_uint256"
               }
             ]
+          },
+          "t_struct(UintSet)3419_storage": {
+            "label": "struct EnumerableSetUpgradeable.UintSet",
+            "members": [
+              {
+                "label": "_inner",
+                "type": "t_struct(Set)2961_storage"
+              }
+            ]
+          },
+          "t_struct(Set)2961_storage": {
+            "label": "struct EnumerableSetUpgradeable.Set",
+            "members": [
+              {
+                "label": "_values",
+                "type": "t_array(t_bytes32)dyn_storage"
+              },
+              {
+                "label": "_indexes",
+                "type": "t_mapping(t_bytes32,t_uint256)"
+              }
+            ]
+          },
+          "t_array(t_bytes32)dyn_storage": {
+            "label": "bytes32[]"
+          },
+          "t_bytes32": {
+            "label": "bytes32"
+          },
+          "t_mapping(t_bytes32,t_uint256)": {
+            "label": "mapping(bytes32 => uint256)"
           }
         }
       }
