@@ -7,22 +7,25 @@ import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol";
 import "@openzeppelin/contracts-upgradeable/proxy/utils/UUPSUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import './PanamaZonesManager.sol';
 
 /// @custom:security-contact me@rolilink.com
-contract Zipty is Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
+contract Zipty is PanamaZonesManager, Initializable, ERC721Upgradeable, ERC721EnumerableUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
     using CountersUpgradeable for CountersUpgradeable.Counter;
     CountersUpgradeable.Counter private _idCounter;
+
 
     /// @custom:oz-upgrades-unsafe-allow constructor
     constructor() {
         _disableInitializers();
     }
 
-    function initialize() initializer public {
+    function initialize(Province[] memory _provinces) initializer public {
         __ERC721_init("Zipty", "ZPTY");
         __ERC721Enumerable_init();
         __Ownable_init();
         __UUPSUpgradeable_init();
+        __PanamaZonesManager_init(_provinces);
     }
 
     function mint() public {
