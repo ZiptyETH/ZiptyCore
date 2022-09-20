@@ -8,6 +8,7 @@
     "@openzeppelin/contracts-upgradeable": "^4.7.3"
   },
   "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.16",
     "@openzeppelin/truffle-upgrades": "^1.16.0"
   }
 }

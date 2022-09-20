@@ -34,6 +34,11 @@ contract Zipty is PanamaZonesManager, Initializable, ERC721Upgradeable, ERC721En
         _idCounter.increment();
     }
 
+    function _authorizeZonesManager()
+    internal
+    onlyOwner
+    override 
+    {}
 
     function _authorizeUpgrade(address newImplementation)
         internal

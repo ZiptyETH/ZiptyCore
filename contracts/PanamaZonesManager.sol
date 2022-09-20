@@ -4,7 +4,7 @@ pragma solidity ^0.8.4;
 import "@openzeppelin/contracts-upgradeable/utils/structs/EnumerableSetUpgradeable.sol";
 
 /// @custom:security-contact me@rolilink.com
-contract PanamaZonesManager  {
+abstract contract PanamaZonesManager  {
      //using EnumerableSetUpgradeable for EnumerableSetUpgradeable.Bytes32Set;
      using EnumerableSetUpgradeable for EnumerableSetUpgradeable.UintSet;
 
@@ -53,16 +53,19 @@ contract PanamaZonesManager  {
     }
 
     function initializeProvinces(Province[] memory _provinces) private {
+        _authorizeZonesManager();
+
          if (_provinces.length == 0 ) {
             return;
         }
 
         for (uint256 index = 0; index < _provinces.length; index++) {
-            __addProvince(_provinces[index]);
+            setProvince(_provinces[index]);
         }
     }
 
-    function __addProvince(Province memory _province) private {
+    function setProvince(Province memory _province) public {
+        _authorizeZonesManager();
         provinces.values[_province.code] = _province;
         provinces.ids.add( _province.code);
     }
@@ -83,4 +86,7 @@ contract PanamaZonesManager  {
 
         return provinces.values[provinceCode];
     }
+
+    // Authorize setter functions since any contract inherting this will implement it's own access control logic
+    function _authorizeZonesManager() internal virtual;
 }

@@ -1,8 +1,12 @@
 const ZiptyCore = artifacts.require("Zipty");
 const { deployProxy } = require('@openzeppelin/truffle-upgrades');
+const {
+  expectRevert,
+} = require('@openzeppelin/test-helpers');
 
 const PROVINCES = [
   { code: 8, name: "Panama" },
+  { code: 6, name: "Herrera" },
 ];
 
 const transformResultInStruct = ( result ) => {
@@ -74,12 +78,26 @@ contract("PanamaZonesManager", function (accounts) {
 
     const ziptyContract = await deployZiptyV1({ provinces });
     
-    const results = await debug(ziptyContract.getProvinces());
+    const results = await ziptyContract.getProvinces();
     const herreraProvince = results.find((result) => result.code == provinces[0].code);
     const colonProvince = results.find((result) => result.code == provinces[1].code);
 
     assert.equal(herreraProvince.code, provinces[0].code);
     assert.equal(colonProvince.code, provinces[1].code);
+  });
+
+  it("getProvinces should return all provinces", async function () {
+    const ziptyContract = await deployZiptyV1();
+    
+    const results = await ziptyContract.getProvinces();
+    const panamaProvince = results.find((result) => result.code == PROVINCES[0].code);
+    const herreraProvince = results.find((result) => result.code == PROVINCES[1].code);
+
+    assert.equal(results.length, 2);
+    assert.equal(panamaProvince.code, PROVINCES[0].code);
+    assert.equal(panamaProvince.code, PROVINCES[0].code);
+    assert.equal(herreraProvince.code, PROVINCES[1].code);
+    assert.equal(herreraProvince.name, PROVINCES[1].name);
   });
 
   it("getProvince should return the correct province", async function () {
@@ -89,5 +107,35 @@ contract("PanamaZonesManager", function (accounts) {
    
     assert.equal(result.code, PROVINCES[0].code);
     assert.equal(result.name, PROVINCES[0].name);
+  });
+
+  it("setProvince should add a new province", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newProvince = {
+      code: 7,
+      name: "Los Santos",
+    };
+
+    await ziptyContract.setProvince(newProvince);
+    const result =  await ziptyContract.getProvince(newProvince.code);
+   
+    assert.equal(result.code, newProvince.code);
+    assert.equal(result.name, newProvince.name);
+  });
+
+  it("setProvince shouldn't add a new province when the transaction is not sent from the owner", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newProvince = {
+      code: 7,
+      name: "Los Santos",
+    };
+
+    const txPromise = ziptyContract.setProvince(newProvince, { from: accounts[1] });
+
+
+    await expectRevert(
+      txPromise,
+      "Ownable: caller is not the owner.",
+    );
   });
 });
