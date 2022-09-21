@@ -20,12 +20,12 @@ contract Zipty is PanamaZonesManager, Initializable, ERC721Upgradeable, ERC721En
         _disableInitializers();
     }
 
-    function initialize(Province[] memory _provinces) initializer public {
+    function initialize(Province[] memory _provinces, District[] memory _districts) initializer public {
         __ERC721_init("Zipty", "ZPTY");
         __ERC721Enumerable_init();
         __Ownable_init();
         __UUPSUpgradeable_init();
-        __PanamaZonesManager_init(_provinces);
+        __PanamaZonesManager_init(_provinces, _districts);
     }
 
     function mint() public {
