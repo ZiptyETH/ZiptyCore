@@ -13,87 +13,128 @@
     },
     {
       "address": "0xF12b5dd4EAD5F743C6BaA640B0216200e89B60Da",
-      "txHash": "0xcfb38ea17d9597f0cbb0a9769ac8f4cb40a2e169983d4de79c1996b432ee6ea2",
+      "txHash": "0xd696df187a6f63e862c7df958014110cc1e2d84fc0430cbde0aaffa041362341",
       "kind": "uups"
     },
     {
       "address": "0x345cA3e014Aaf5dcA488057592ee47305D9B3e10",
-      "txHash": "0x0c14c0aa1f98a36a663b804b406df9bcb1b5791877c1c3807f1afda2198b7159",
+      "txHash": "0xfe758b0740bdb913d3de9d86102cf1066dcfbf78f39be414ce45186582af6db0",
       "kind": "uups"
     },
     {
       "address": "0xf25186B5081Ff5cE73482AD761DB0eB0d25abfBF",
-      "txHash": "0x1840d464799b39db7efc632fe5096cb821ac38135a19b8209959e028e433c888",
+      "txHash": "0xfd2f1e06f571ce28223c1bb7f29e26d543ec4b780748b7e212a3dc0cac35ee14",
       "kind": "uups"
     },
     {
       "address": "0x8f0483125FCb9aaAEFA9209D8E9d7b9C8B9Fb90F",
-      "txHash": "0xae4d680907cf5dcd042af66207ec6a1cfae783214c195aad2017217a6b480502",
+      "txHash": "0xf2224aa24dd08ff31dcf50f1aead30719a1601a56139506da4995f42aa496d91",
       "kind": "uups"
     },
     {
       "address": "0x2C2B9C9a4a25e24B174f26114e8926a9f2128FE4",
-      "txHash": "0x664306fa015d9b88310d0bc3835b5a439578e79fd80e40c8fc6c3158a30edff0",
+      "txHash": "0x01bf50ae99ef99066d12f89cb65b6503ad9f886e6c1f92c642b662737dc2d0c2",
       "kind": "uups"
     },
     {
       "address": "0x30753E4A8aad7F8597332E813735Def5dD395028",
-      "txHash": "0xf0e5a1a2b206192ff23aa419e7515871149d7617581d1dd035dc11b2c3ea0670",
+      "txHash": "0x93871ec94bd1e178b2e96aab6ce36101e635e092fb93f1683ea11c7f42f25267",
       "kind": "uups"
     },
     {
       "address": "0xFB88dE099e13c3ED21F80a7a1E49f8CAEcF10df6",
-      "txHash": "0xf286116d77a88943f406411f93f71dada622cea057f672e6fb39ea9e3c8f72ef",
+      "txHash": "0x4225d22a3e0ddf8ebf1253a1b8f0b113e66cc134c3cc37aa72c79a15b4aac88d",
       "kind": "uups"
     },
     {
       "address": "0xf204a4Ef082f5c04bB89F7D5E6568B796096735a",
-      "txHash": "0x5f268e756593487ffcf3de75352847486495c2b85ec863afcffc7a910f202347",
+      "txHash": "0xd86d789024439a7e920352795f0049a0c4781e6a0c4d85627f2b39eda0e41dfb",
       "kind": "uups"
     },
     {
       "address": "0x75c35C980C0d37ef46DF04d31A140b65503c0eEd",
-      "txHash": "0xca986b307530a94ceb6e37770e45bc3acbf676a98b4da5e8ca7d0a1fd8119dd3",
+      "txHash": "0x9e2c46ea36c0b924d3b86019893ae536392af1050571366e0e84dfef17e40f8a",
       "kind": "uups"
     },
     {
       "address": "0x82D50AD3C1091866E258Fd0f1a7cC9674609D254",
-      "txHash": "0xe60d8d61fa7b6984b7858c30c2b700186b00014b701806e912ee5bb3a02abc54",
+      "txHash": "0xbe51af30af7dfb6b01e93c76d00405bccd824c024aae05ca5a1e16c7f81fe745",
       "kind": "uups"
     },
     {
       "address": "0xdDA6327139485221633A1FcD65f4aC932E60A2e1",
-      "txHash": "0x72097e3c338b52af654afca158f5dbbf80574fd928f3ddd5aad80874e639edb3",
+      "txHash": "0x1c5e8763b2c1af8b02d9fabae4211211ff00b4c8ae83f09372eee8add0da72d6",
       "kind": "uups"
     },
     {
       "address": "0xeec918d74c746167564401103096D45BbD494B74",
-      "txHash": "0x2ddbca51aaabc3a0117dbfa7315cb72b48d197afd9bb76380e6dd2028c2c5699",
+      "txHash": "0x1a3b40f82d5f624f709138acdd6032bedf1c6cce71ffeed1b88bcd64baff6e91",
       "kind": "uups"
     },
     {
       "address": "0x0d8cc4b8d15D4c3eF1d70af0071376fb26B5669b",
-      "txHash": "0x7e2aed8394a677179e7ef4f2b2de06fa32b043f8a80a0fef67b7fec3dbfd12f5",
+      "txHash": "0xe6f9dff0e32c723e50537fa7eca3a7f44f31fcc2c35d616a58be8b53dd223c4b",
+      "kind": "uups"
+    },
+    {
+      "address": "0xEcFcaB0A285d3380E488A39B4BB21e777f8A4EaC",
+      "txHash": "0x7e4b9f038fe6673396d0fcf9506e5690a0af0b199521db005a6c8615f6770539",
+      "kind": "uups"
+    },
+    {
+      "address": "0x38cF23C52Bb4B13F051Aec09580a2dE845a7FA35",
+      "txHash": "0x402a3e10922c0801b7ecd8203eedcaad93263d97b22464dc3abcb3766728ff34",
+      "kind": "uups"
+    },
+    {
+      "address": "0xbaAA2a3237035A2c7fA2A33c76B44a8C6Fe18e87",
+      "txHash": "0xaae4471bb4b44729d13d0a890794c6ff6bc7bebc76e38a3f8ed4df0974965206",
+      "kind": "uups"
+    },
+    {
+      "address": "0x13274Fe19C0178208bCbee397af8167A7be27f6f",
+      "txHash": "0xed142a2c9c1b76f88cf95260925b54951fd1a882a272611283c3b2108a8ce72d",
+      "kind": "uups"
+    },
+    {
+      "address": "0xA4392264a2d8c998901D10C154C91725b1BF0158",
+      "txHash": "0x38d9daceccb173c1f319d57c19ecc9229c36559418203861186a6c66479c533b",
+      "kind": "uups"
+    },
+    {
+      "address": "0xB529f14AA8096f943177c09Ca294Ad66d2E08b1f",
+      "txHash": "0x875a242c4646eb0b0ac30fd1fe8a5d022e9a8142797923f4e69a43bea998bf90",
+      "kind": "uups"
+    },
+    {
+      "address": "0x3d49d1eF2adE060a33c6E6Aa213513A7EE9a6241",
+      "txHash": "0x64e1bec8b57953a16b66b5fb20cdc8ed0663f910a9f19b4ae75e03a2bb6d32dc",
       "kind": "uups"
     }
   ],
   "impls": {
-    "36bb4fd1afed899381e6af961e8503509ddda617d877db9a6207260161ee98f9": {
+    "d858beb3d47203e4d85616ae1b4f1806445e4a33c0b22076f0de43609e40c251": {
       "address": "0x8CdaF0CD259887258Bc13a92C0a6dA92698644C0",
-      "txHash": "0x91019376fdc95a22fd6b2411c4e45512f99b18f6abeb38b42190980cac42feb7",
+      "txHash": "0x65bf8dd8d23201932510479537983e1bde393b2d6a78c0d107352b92616d6c03",
       "layout": {
         "storage": [
           {
             "contract": "PanamaZonesManager",
             "label": "provinces",
-            "type": "t_struct(Provinces)3590_storage",
+            "type": "t_struct(Provinces)3592_storage",
             "src": "../project:/contracts/PanamaZonesManager.sol:48"
           },
           {
             "contract": "PanamaZonesManager",
             "label": "districts",
-            "type": "t_struct(Districts)3599_storage",
+            "type": "t_struct(Districts)3601_storage",
             "src": "../project:/contracts/PanamaZonesManager.sol:49"
+          },
+          {
+            "contract": "PanamaZonesManager",
+            "label": "corregimientos",
+            "type": "t_struct(Corregimientos)3610_storage",
+            "src": "../project:/contracts/PanamaZonesManager.sol:50"
           },
           {
             "contract": "Initializable",
@@ -281,7 +322,7 @@
           "t_uint8": {
             "label": "uint8"
           },
-          "t_struct(Provinces)3590_storage": {
+          "t_struct(Provinces)3592_storage": {
             "label": "struct PanamaZonesManager.Provinces",
             "members": [
               {
@@ -341,7 +382,7 @@
           "t_mapping(t_bytes32,t_uint256)": {
             "label": "mapping(bytes32 => uint256)"
           },
-          "t_struct(Districts)3599_storage": {
+          "t_struct(Districts)3601_storage": {
             "label": "struct PanamaZonesManager.Districts",
             "members": [
               {
@@ -366,11 +407,11 @@
               },
               {
                 "label": "provinceCode",
-                "type": "t_uint8"
+                "type": "t_uint256"
               },
               {
                 "label": "code",
-                "type": "t_uint8"
+                "type": "t_uint256"
               }
             ]
           },
@@ -380,6 +421,43 @@
               {
                 "label": "_inner",
                 "type": "t_struct(Set)2961_storage"
+              }
+            ]
+          },
+          "t_struct(Corregimientos)3610_storage": {
+            "label": "struct PanamaZonesManager.Corregimientos",
+            "members": [
+              {
+                "label": "values",
+                "type": "t_mapping(t_bytes32,t_struct(Corregimiento)3583_storage)"
+              },
+              {
+                "label": "ids",
+                "type": "t_struct(Bytes32Set)3155_storage"
+              }
+            ]
+          },
+          "t_mapping(t_bytes32,t_struct(Corregimiento)3583_storage)": {
+            "label": "mapping(bytes32 => struct PanamaZonesManager.Corregimiento)"
+          },
+          "t_struct(Corregimiento)3583_storage": {
+            "label": "struct PanamaZonesManager.Corregimiento",
+            "members": [
+              {
+                "label": "name",
+                "type": "t_string_storage"
+              },
+              {
+                "label": "provinceCode",
+                "type": "t_uint256"
+              },
+              {
+                "label": "districtCode",
+                "type": "t_uint256"
+              },
+              {
+                "label": "code",
+                "type": "t_uint256"
               }
             ]
           }

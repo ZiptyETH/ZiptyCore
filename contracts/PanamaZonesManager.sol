@@ -16,14 +16,15 @@ abstract contract PanamaZonesManager  {
 
     struct District {
         string name;
-        uint8 provinceCode;
-        uint8 code;
+        uint256 provinceCode;
+        uint256 code;
     }
 
     struct Corregimiento {
 	    string name;
-        uint8 districtCode;
-        uint8 code;
+        uint256 provinceCode;
+        uint256 districtCode;
+        uint256 code;
     }
 
     struct Provinces {
@@ -36,17 +37,17 @@ abstract contract PanamaZonesManager  {
         mapping(bytes32 => District) values;
         EnumerableSetUpgradeable.Bytes32Set ids;
     }
-/*
+
     // // saves the corregimientos under their bytes32 string representation (8-1-3)
     struct Corregimientos {
         mapping(bytes32 => Corregimiento) values;
-        bytes32[] ids;
+        EnumerableSetUpgradeable.Bytes32Set ids;
     }
-*/
 
     // Variables declaration
     Provinces provinces;
     Districts districts;
+    Corregimientos corregimientos;
 
     constructor() { }
 
@@ -55,16 +56,35 @@ abstract contract PanamaZonesManager  {
         _;
     }
 
-    modifier withExistingProvince(uint256 code) {
-        Province memory _province = provinces.values[code];
+    modifier isValidDistrict(uint256 provinceCode, uint256 code) {
+        {
+            require(code > 0, "PMZ: Minimum District code is 1.");
+            require(provinceCode > 0, "PMZ: Minimum Province code is 1.");
+        }
+
+        Province memory _province = provinces.values[provinceCode];
         require(_province.code != 0, "PMZ: Paren't province doesn't exist ");
         _;
     }
 
-    function __PanamaZonesManager_init(Province[] memory _provinces, District[] memory _districts) internal {
+    modifier isValidCorregimiento(uint256 provinceCode, uint256 districtCode, uint256 code) {
+        {
+            require(code > 0, "PMZ: Minimum Corregimiento code is 1.");
+            require(provinceCode > 0, "PMZ: Minimum Province code is 1.");
+            require(districtCode > 0, "PMZ: Minimum District code is 1.");
+        }
+
+        bytes32 id = getDistrictIdAsBytes32(provinceCode, districtCode);
+        District memory _district = districts.values[id];
+        require(_district.code != 0, "PMZ: Paren't District doesn't exist ");
+        _;
+    }
+
+    function __PanamaZonesManager_init(Province[] memory _provinces, District[] memory _districts, Corregimiento[] memory _corregimientos) internal {
         _authorizeZonesManager();
         initializeProvinces(_provinces);
         initializeDistricts(_districts);
+        initializeCorregimientos(_corregimientos);
     }
 
     function initializeProvinces(Province[] memory _provinces) private {
@@ -87,6 +107,16 @@ abstract contract PanamaZonesManager  {
         }
     }
 
+     function initializeCorregimientos(Corregimiento[] memory _corregimientos) private {
+         if (_corregimientos.length == 0 ) {
+            return;
+        }
+
+        for (uint256 index = 0; index < _corregimientos.length; index++) {
+            setCorregimiento(_corregimientos[index]);
+        }
+    }
+
     function setProvince(Province memory _province) isValidCode(_province.code, "province") public {
         _authorizeZonesManager();
         
@@ -94,7 +124,7 @@ abstract contract PanamaZonesManager  {
         provinces.ids.add(_province.code);
     }
 
-    function getDistrictIdAsBytes32(uint8 provinceCode, uint8 districtCode) private pure returns (bytes32) {
+    function getDistrictIdAsBytes32(uint256 provinceCode, uint256 districtCode) private pure returns (bytes32) {
         return bytes32(abi.encodePacked(
                 StringsUpgradeable.toString(provinceCode),
                 '-',
@@ -102,7 +132,29 @@ abstract contract PanamaZonesManager  {
             ));
     }
 
-    function getDistrictIdAsString(uint8 provinceCode, uint8 districtCode) public pure returns (string memory) {
+    function getCorregimientoIddAsBytes32(uint256 provinceCode, uint256 districtCode, uint256 corregimientoCode) private pure returns (bytes32) {
+        return bytes32(abi.encodePacked(
+                StringsUpgradeable.toString(provinceCode),
+                '-',
+                StringsUpgradeable.toString(districtCode)
+                ,
+                '-',
+                StringsUpgradeable.toString(corregimientoCode)
+            ));
+    }
+
+    function getCorregimientoIddAsString(uint256 provinceCode, uint256 districtCode, uint256 corregimientoCode) private pure returns (string memory) {
+        return string(abi.encodePacked(
+                StringsUpgradeable.toString(provinceCode),
+                '-',
+                StringsUpgradeable.toString(districtCode)
+                ,
+                '-',
+                StringsUpgradeable.toString(corregimientoCode)
+            ));
+    }
+
+    function getDistrictIdAsString(uint256 provinceCode, uint256 districtCode) public pure returns (string memory) {
         return string(abi.encodePacked(
                 StringsUpgradeable.toString(provinceCode),
                 '-',
@@ -111,9 +163,7 @@ abstract contract PanamaZonesManager  {
     }
 
     function setDistrict(District memory _district)
-        isValidCode(_district.provinceCode, "province")
-        isValidCode(_district.code, "district")
-        withExistingProvince(_district.provinceCode)
+        isValidDistrict(_district.provinceCode, _district.code)
         public {
         _authorizeZonesManager();
         
@@ -121,6 +171,17 @@ abstract contract PanamaZonesManager  {
         
         districts.values[id] = _district;
         districts.ids.add(id);
+    }
+
+     function setCorregimiento(Corregimiento memory _corregimiento)
+        isValidCorregimiento(_corregimiento.provinceCode, _corregimiento.districtCode, _corregimiento.code)
+        public {
+        _authorizeZonesManager();
+        
+        bytes32 id = getCorregimientoIddAsBytes32(_corregimiento.provinceCode, _corregimiento.districtCode, _corregimiento.code);
+        
+        corregimientos.values[id] = _corregimiento;
+        corregimientos.ids.add(id);
     }
 
     function getProvinces() public view returns(Province[] memory) {
@@ -145,18 +206,38 @@ abstract contract PanamaZonesManager  {
         return rDistricts;
     }
 
-    function getProvince(uint8 provinceCode) public view isValidCode(provinceCode, "province") returns(Province memory) {
+    function getCorregimientos() public view returns(Corregimiento[] memory) {
+        uint256 length = corregimientos.ids.length();
+        Corregimiento[] memory rCorregimientos = new Corregimiento[](length);
+
+        for (uint256 index = 0; index < length; index++) {
+            rCorregimientos[index] = corregimientos.values[corregimientos.ids.at(index)];
+        }
+
+        return rCorregimientos;
+    }
+
+    function getProvince(uint256 provinceCode) public view isValidCode(provinceCode, "province") returns(Province memory) {
         return provinces.values[provinceCode];
     }
 
-    function getDistrict(uint8 provinceCode, uint8 districtCode)
+    function getDistrict(uint256 provinceCode, uint256 districtCode)
         public
         view
-        isValidCode(provinceCode, "province")
-        isValidCode(districtCode, "district")
-        withExistingProvince(provinceCode)
+        isValidDistrict(provinceCode, districtCode)
         returns(District memory) {
         return districts.values[getDistrictIdAsBytes32(provinceCode, districtCode)];
+    }
+
+    function getCorregimiento(uint256 provinceCode, uint256 districtCode, uint256 code)
+        public
+        view
+        isValidCorregimiento(provinceCode, districtCode, code)
+        returns(Corregimiento memory) {
+        bytes32 id = getCorregimientoIddAsBytes32(provinceCode, districtCode, code);
+        {
+            return corregimientos.values[id];   
+        }
     }
 
     // Authorize setter functions since any contract inherting this will implement it's own access control logic

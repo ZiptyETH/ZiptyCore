@@ -26,8 +26,16 @@ const DISTRICTS = [
 
 ];
 
-const deployZiptyV1 = async (provinces = PROVINCES, districts = DISTRICTS) => 
-  await deployProxy(ZiptyCore, [ provinces, districts ], { kind: "uups" });
+const CORREGIMIENTOS = [
+  { provinceCode : 6, districtCode: 1, code: 1, name: "Chitré" },
+  { provinceCode : 6, districtCode: 1, code: 2, name: "La Arena" },
+  { provinceCode : 6, districtCode: 1, code: 3, name: "Llano Bonito" },
+  { provinceCode : 6, districtCode: 1, code: 4, name: "San Juan Bautista" },
+  { provinceCode : 6, districtCode: 1, code: 5, name: "Monagrillo" },
+]
+
+const deployZiptyV1 = async (provinces = PROVINCES, districts = DISTRICTS, corregimientos = CORREGIMIENTOS) => 
+  await deployProxy(ZiptyCore, [ provinces, districts, corregimientos ], { kind: "uups" });
 
 contract("Zipty V1", function (accounts) {
   const ownerAccount = accounts[0];
@@ -182,7 +190,7 @@ contract("PanamaZonesManager", function (accounts) {
 
     await expectRevert(
       txPromise,
-      "PMZ: Minimum province code is 1.",
+      "PMZ: Minimum Province code is 1.",
     );
   });
 
@@ -195,7 +203,7 @@ contract("PanamaZonesManager", function (accounts) {
 
     await expectRevert(
       txPromise,
-      "PMZ: Minimum district code is 1.",
+      "PMZ: Minimum District code is 1.",
     );
   });
 
@@ -235,7 +243,7 @@ contract("PanamaZonesManager", function (accounts) {
     assert.equal(id, '7-1');
   });
 
-  it("getDistrict should return the correct province", async function () {
+  it("getDistrict should return the correct district", async function () {
     const ziptyContract = await deployZiptyV1();
 
     const result = await ziptyContract.getDistrict(DISTRICTS[0].provinceCode, DISTRICTS[0].code);
@@ -244,4 +252,102 @@ contract("PanamaZonesManager", function (accounts) {
     assert.equal(result.name, DISTRICTS[0].name);
     assert.equal(result.provinceCode, DISTRICTS[0].provinceCode);
   });
+
+  it("setCorregimiento shouldn't set a corregimiento when the transaction is not sent from the owner", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newCorregimiento =  { provinceCode: 6, districtCode: 1, code: 6, name: "Nuevo Monagrillo" };
+
+    const txPromise = ziptyContract.setCorregimiento(newCorregimiento, { from: accounts[1] });
+
+
+    await expectRevert(
+      txPromise,
+      "Ownable: caller is not the owner.",
+    );
+  });
+
+  it("setCorregimiento should set a corregimiento", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newCorregimiento =  { provinceCode: 6, districtCode: 1, code: 6, name: "Nuevo Monagrillo" };
+
+    await ziptyContract.setCorregimiento(newCorregimiento);
+    const result =  await ziptyContract.getCorregimiento(
+      newCorregimiento.provinceCode,
+      newCorregimiento.districtCode,
+      newCorregimiento.code
+    );
+   
+    assert.equal(result.code, newCorregimiento.code);
+    assert.equal(result.provinceCode, newCorregimiento.provinceCode);
+    assert.equal(result.districtCode, newCorregimiento.districtCode);
+    assert.equal(result.name, newCorregimiento.name);
+  });
+
+  it("setCorregimiento shouldn't set a corregimiento when the provinceCode is invalid", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newCorregimiento =  { provinceCode: 0, districtCode: 1, code: 6, name: "Nuevo Monagrillo" };
+
+    const txPromise = ziptyContract.setCorregimiento(newCorregimiento);
+
+
+    await expectRevert(
+      txPromise,
+      "PMZ: Minimum Province code is 1.",
+    );
+  });
+
+  it("setCorregimiento shouldn't set a corregimiento when the districtCode is invalid", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newCorregimiento =  { provinceCode: 6, districtCode: 0, code: 6, name: "Nuevo Monagrillo" };
+
+    const txPromise = ziptyContract.setCorregimiento(newCorregimiento);
+
+
+    await expectRevert(
+      txPromise,
+      "PMZ: Minimum District code is 1.",
+    );
+  });
+
+  it("setCorregimiento shouldn't set a corregimiento when the code is invalid", async function () {
+    const ziptyContract = await deployZiptyV1();
+    const newCorregimiento =  { provinceCode: 6, districtCode: 1, code: 0, name: "Nuevo Monagrillo" };
+
+    const txPromise = ziptyContract.setCorregimiento(newCorregimiento);
+
+
+    await expectRevert(
+      txPromise,
+      "PMZ: Minimum Corregimiento code is 1.",
+    );
+  });
+
+  it("getCorregimientos should return all corregimientos", async function () {
+    const ziptyContract = await deployZiptyV1();
+    
+    const results = await ziptyContract.getCorregimientos();
+
+    assert.equal(results.length, CORREGIMIENTOS.length);    
+    results.forEach(result => {
+      const corregimiento = CORREGIMIENTOS.find((_corregimiento) => (
+        _corregimiento.code == result.code &&
+        _corregimiento.provinceCode == result.provinceCode &&
+        _corregimiento.districtCode == result.districtCode
+      ));
+
+      assert.equal(result.name, corregimiento.name);
+    });
+  });
+
+  it("getCorregimiento should return the correct corregimiento", async function () {
+    const ziptyContract = await deployZiptyV1();
+
+    const result = await ziptyContract.getCorregimiento(CORREGIMIENTOS[0].provinceCode, CORREGIMIENTOS[0].districtCode, CORREGIMIENTOS[0].code);
+   
+    assert.equal(result.code, CORREGIMIENTOS[0].code);
+    assert.equal(result.name, CORREGIMIENTOS[0].name);
+    assert.equal(result.provinceCode, CORREGIMIENTOS[0].provinceCode);
+    assert.equal(result.districtCode, CORREGIMIENTOS[0].districtCode);
+  });
+
 });
